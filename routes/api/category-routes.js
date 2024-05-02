@@ -1,10 +1,17 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const { Category, Product, Tag } = require('../../models');
 
 // The `/api/categories` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all categories
+    const categoryData = await Category.findAll()
+    try {
+      return res.status(200).json(categoryData);
+    } catch {
+      return res.status(404).send("There is an error with the /api/categories GET route.");
+    }
+
   // be sure to include its associated Products
 });
 
