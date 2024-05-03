@@ -12,14 +12,14 @@ ProductTag.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    productId: {
+    product_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "product",
         key: "id",
       },
     },
-    tagId: {
+    tag_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "tag",
@@ -32,7 +32,7 @@ ProductTag.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'product_tag',
+    modelName: 'productTag',
   }
 );
 
