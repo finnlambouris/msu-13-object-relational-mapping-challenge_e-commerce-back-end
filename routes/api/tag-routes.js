@@ -34,16 +34,49 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
-  // create a new tag
+router.post('/', async (req, res) => {
+  try {
+    // create a new tag
+    const tagData = await Tag.create({
+      tag_name: req.body.tag_name,
+    });
+    return res.status(200).json(tagData);
+  } catch {
+    return res.status(404).send("There is an error with the /api/tags/ POST route.");
+  }
 });
 
-router.put('/:id', (req, res) => {
-  // update a tag's name by its `id` value
+router.put('/:id', async (req, res) => {
+  try {
+    // update a tag's name by its `id` value
+    let tagData = await Tag.update(
+      {
+        tag_name: req.body.tag_name,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    )
+    return res.status(200).json(tagData);
+  } catch {
+    return res.status(404).send("There is an error with the /api/tags/:id PUT route.");
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    // delete on tag by its `id` value
+    let tagData = await Tag.destroy({
+      where: {
+        id: req.params.id,
+      },
+    })
+    return res.status(200).json(tagData);
+  } catch {
+    return res.status(404).send("There is an error with the /api/categories/:id DELETE route.");
+  }
 });
 
 module.exports = router;
