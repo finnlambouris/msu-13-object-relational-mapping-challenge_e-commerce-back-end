@@ -10,6 +10,11 @@ router.get('/', async (req, res) => {
       // be sure to include its associated Product data
       include: [{ model: Product, through: ProductTag, as: "products" }],
     });
+
+    if (!tagData) {
+      return res.status(404).send("Tag not found.");
+    }
+
     return res.status(200).json(tagData);
   } catch {
     return res.status(404).send("There is an error with the /api/tags GET route.");

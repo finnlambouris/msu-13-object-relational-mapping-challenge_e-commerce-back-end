@@ -93,11 +93,11 @@ router.put('/:id', (req, res) => {
             };
           });
 
-            // figure out which ones to remove
+          // figure out which ones to remove
           const productTagsToRemove = productTags
           .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
           .map(({ id }) => id);
-                  // run both actions
+          // run both actions
           return Promise.all([
             ProductTag.destroy({ where: { id: productTagsToRemove } }),
             ProductTag.bulkCreate(newProductTags),
@@ -113,8 +113,18 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    // delete one product by its `id` value
+    let productData = await Product.destroy({
+      where: {
+        id: req.params.id,
+      },
+    })
+    return res.status(200).json(productData);
+  } catch {
+    return res.status(404).send("There is an error with the /api/products/:id DELETE route.");
+  }
 });
 
 module.exports = router;
