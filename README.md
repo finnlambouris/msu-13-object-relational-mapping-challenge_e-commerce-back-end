@@ -6,7 +6,7 @@ I WANT a back end for my e-commerce website that uses the latest technologies<br
 SO THAT my company can compete with other e-commerce companies
 
 ## Deployed Application
-[Walkthrough Video]()
+[Walkthrough Video](https://youtu.be/vZAyh84qG8c)
 
 ## Installation
 Node.js is needed to be able to run this code in the terminal.
