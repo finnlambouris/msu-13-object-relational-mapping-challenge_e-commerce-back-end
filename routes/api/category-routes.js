@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
         // be sure to include its associated Products
         include: [{ model: Product }],
       });
+
       return res.status(200).json(categoryData);
     } catch {
       return res.status(404).send("There is an error with the /api/categories GET route.");
@@ -23,6 +24,11 @@ router.get('/:id', async (req, res) => {
       // be sure to include its associated Products
       include: [{ model: Product }],
     });
+
+    if (!categoryData) {
+      return res.status(404).send("Category not found.");
+    }
+
     return res.status(200).json(categoryData);
   } catch {
     return res.status(404).send("There is an error with the /api/categories/:id GET route.");
@@ -70,7 +76,7 @@ router.delete('/:id', async (req, res) => {
     })
     return res.status(200).json(categoryData);
   } catch {
-    return res.status(404).send("There is an error with the /api/categories/:id PUT route.");
+    return res.status(404).send("There is an error with the /api/categories/:id DELETE route.");
   }
 });
 
